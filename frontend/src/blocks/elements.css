@@ -1,0 +1,99 @@
+.elements {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  /* width: 68.75%; */
+  gap: 17px;
+}
+.element {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  gap: 0;
+  width: 282px;
+  height: 361px;
+}
+.element__trash-can {
+  position: absolute;
+  background: url(../src/assets/images/Trash.png) center no-repeat;
+  z-index: 1;
+  height: 15px;
+  width: 15px;
+  background-size: 100%;
+  border: none;
+  align-self: flex-end;
+  margin: 10px 10px 0px 0px;
+  cursor: pointer;
+}
+.element__trash-can:hover {
+  transform: scale(1.1);
+}
+.element__banner {
+  display: flex;
+  justify-content: space-around;
+  background-color: #fff;
+}
+.element__title {
+  color: #000;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.element__like {
+  align-self: center;
+  /*   width: 24px;
+    height: 24px; */
+  border: none;
+  background: url(https://practicum-content.s3.us-west-1.amazonaws.com/web-code/dom/moved_heart.svg)
+    center no-repeat;
+  background-size: 100%;
+  cursor: pointer;
+  height: 15px;
+  width: 15px;
+  opacity: 0.5;
+  transition: 0.3s;
+}
+.element__like:hover {
+  transform: scale(1.1);
+}
+.element__like_liked {
+  /* filter: brightness(0); */
+  border: none;
+  background: url(https://practicum-content.s3.us-west-1.amazonaws.com/web-code/dom/moved_heart-filled.svg)
+    center no-repeat;
+  background-size: 100%;
+  cursor: pointer;
+  height: 15px;
+  width: 15px;
+  /*   position: absolute; */
+  right: 10px;
+  opacity: 0.5;
+  transition: 0.3s;
+}
+.element__photo {
+  /* filter: brightness(0); */
+  width: 100%;
+  height: 80%;
+}
+
+@media (max-width: 902px) {
+  .elements {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    /* width: 88.125%; */
+    gap: 17px;
+  }
+  .element {
+    margin: auto;
+  }
+}
+
+@media (max-width: 600px) {
+  .elements {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    grid-template-columns: 1fr;
+    width: 100%;
+    gap: 17px;
+  }
+}

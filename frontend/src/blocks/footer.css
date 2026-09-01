@@ -1,0 +1,27 @@
+.footer {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+.footer__content {
+  width: 68.75%;
+}
+.footer__text {
+  align-self: flex-start;
+}
+
+@media (max-width: 1047px) {
+  .footer {
+    display: flex;
+    width: 100%;
+  }
+  .footer__content {
+    width: 88.125%;
+  }
+}
+@media (max-width: 600px) {
+  .footer {
+    display: flex;
+    width: 88.125%;
+  }
+}

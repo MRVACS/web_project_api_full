@@ -1,0 +1,11 @@
+.expandedImage {
+  border-radius: 10px;
+  align-items: center;
+  max-width: 100%;
+  max-height: 290px;
+}
+.expandedImage__name {
+  color: #000;
+  align-self: flex-start;
+  padding-left: 10px;
+}

@@ -1,0 +1,33 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 2px solid #fff;
+}
+
+.navbar__logo {
+  padding: 24px;
+  margin-left: 12px;
+}
+
+.navbar__nav {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  margin-right: 64px;
+}
+
+.navbar__link {
+  color: #fff;
+  margin-left: 24px;
+  text-decoration: none;
+}
+
+.navbar__link_invisible {
+  display: none;
+}
+
+.navbar__button {
+  background-color: black;
+  border: none;
+  font-size: 16px;
+}
