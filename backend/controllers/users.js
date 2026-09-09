@@ -1,5 +1,6 @@
 const User = require("../models/user");
 const bcrypt = require("bcryptjs");
+require("dotenv").config();
 const jwt = require("jsonwebtoken");
 const NotFoundError = require("../errors/not-found-err");
 const InvalidDataError = require("../errors/invalid-data-error");
@@ -126,7 +127,7 @@ module.exports.login = (req, res, next) => {
     }) */
       .then((user) => {
         /* console.log("✅ Usuario encontrado:", user._id); */
-        const token = jwt.sign({ _id: user._id }, "some-secret-key", {
+        const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET, {
           expiresIn: "7d",
         });
         /* console.log("✅ Token generado"); */

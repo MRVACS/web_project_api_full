@@ -8,6 +8,7 @@ const mongoose = require("mongoose");
 mongoose.connect("mongodb://localhost:27017/aroundb");
 const auth = require("./middlewares/auth");
 const app = express();
+
 /* app.use((req, res, next) => {
   console.log("🔥 PETICIÓN RECIBIDA:", req.method, req.url);
   next();
@@ -33,6 +34,12 @@ app.use(requestLogger);
   console.log("🔐 AUT H HEADER:", req.headers.authorization);
   next();
 }); */
+app.get("/crash-test", () => {
+  setTimeout(() => {
+    throw new Error("El servidor va a caer");
+  }, 0);
+});
+
 app.post("/signin", login);
 app.post("/signup", createUser);
 app.use(auth);

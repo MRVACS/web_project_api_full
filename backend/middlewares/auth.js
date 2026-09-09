@@ -1,4 +1,5 @@
 const jwt = require("jsonwebtoken");
+require("dotenv").config();
 const InvalidDataError = require("../errors/invalid-data-error");
 const AuthorizationError = require("../errors/authorization-error");
 
@@ -17,7 +18,7 @@ module.exports = (req, res, next) => {
   let payload;
 
   try {
-    payload = jwt.verify(token, "some-secret-key");
+    payload = jwt.verify(token, process.env.JWT_SECRET);
     console.log("✅ AUTH - Token válido:", payload);
   } catch (err) {
     console.log("❌ AUTH - Token inválido:", err.message);
