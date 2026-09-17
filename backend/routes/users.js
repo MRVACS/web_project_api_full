@@ -3,13 +3,14 @@ const { celebrate, Joi } = require("celebrate");
 const {
   getUsers,
   getUserById,
+  getCurrentUser,
   updateUser,
   updateUserAvatar,
 } = require("../controllers/users");
 
 const validateURL = require("../middlewares/url-validator");
 router.get("/", getUsers);
-router.get("/me", getUserById);
+router.get("/me", getCurrentUser);
 router.get("/:userId", getUserById);
 /* router.post("/", createUser); */
 router.patch("/me", updateUser);

@@ -1,4 +1,4 @@
-export const BASE_URL = "http://localhost:3000";
+import BASE_URL from "./config";
 
 class Api {
   constructor({ baseUrl, header }) {
@@ -132,7 +132,7 @@ class Api {
 
 const newApi = new Api({
   /* baseUrl: "https://around-api.es.tripleten-services.com/v1", */
-  baseUrl: "http://localhost:3000",
+  baseUrl: BASE_URL,
   header: {
     "Content-Type": "application/json",
   },

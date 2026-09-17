@@ -8,32 +8,10 @@ const AuthorizationError = require("../errors/authorization-error");
 
 module.exports.getUsers = (req, res, next) => {
   User.find({})
-    .then((users) => res.send(users))
-    .catch((err) => {
-      let status = 400;
-      switch (err.status) {
-        case 404:
-          status = 404;
-          break;
-        case 500:
-          status = 500;
-          break;
-        default:
-          status = 400;
-          break;
-      }
-      res.status(status).send({ message: err.message });
-    });
-};
-module.exports.getUserById = (req, res, next) => {
-  User.findById(req.user._id)
     .orFail(() => {
-      /* const error = new Error("No se ha encontrado ningún usuario con ese id");
-      error.statusCode = 404;
-      throw error; */
-      throw new NotFoundError("No se ha encontrado ningún usuario con ese id");
+      throw new NotFoundError("Error buscando usuarios");
     })
-    .then((user) => res.send(user))
+    .then((users) => res.send(users))
     .catch(
       next /* (err) => {
       let status = 400;
@@ -51,6 +29,26 @@ module.exports.getUserById = (req, res, next) => {
       res.status(status).send({ message: err.message });
     } */,
     );
+};
+module.exports.getUserById = (req, res, next) => {
+  User.findById(req.params.userId)
+    .orFail(() => {
+      /* const error = new Error("No se ha encontrado ningún usuario con ese id");
+      error.statusCode = 404;
+      throw error; */
+      throw new NotFoundError("No se ha encontrado ningún usuario con ese id");
+    })
+    .then((user) => res.send(user))
+    .catch(next);
+};
+
+module.exports.getCurrentUser = (req, res, next) => {
+  User.findById(req.user._id)
+    .orFail(() => {
+      throw new NotFoundError("No se ha encontrado ningún usuario con ese id");
+    })
+    .then((user) => res.send(user))
+    .catch(next);
 };
 module.exports.createUser = (req, res, next) => {
   console.log("➡️ Entró a /signup");
@@ -111,7 +109,7 @@ module.exports.login = (req, res, next) => {
   console.log("Body recibido:", req.body); */
   const { email, password } = req.body;
   if (!email || !password) {
-    throw new InvalidData("no se ha proporcionado uno o más campos");
+    throw new InvalidDataError("No se ha proporcionado uno o más campos");
   }
   /* console.log("➡️ Buscando usuario:", email); */
   /*  User.findOne({ email }).Select; */

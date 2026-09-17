@@ -21,6 +21,7 @@ export default function Main(props) {
   const {
     currentUser,
     handleCardDelete,
+    handleDeleteConfirmation,
     handleCardLike,
     handleCardClick,
     cards,
@@ -72,6 +73,7 @@ export default function Main(props) {
             handleCardClick={handleCardClick}
             handleCardLike={handleCardLike}
             handleCardDelete={handleCardDelete}
+            handleDeleteConfirmation={handleDeleteConfirmation}
           />
         ))}
       </section>

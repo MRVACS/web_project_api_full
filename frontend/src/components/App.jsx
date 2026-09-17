@@ -18,7 +18,7 @@ import Footer from "./Footer/Footer.jsx";
 
 import * as auth from "../utils/auth.js";
 import api from "../utils/api";
-import { setToken, getToken } from "../utils/token";
+import { setToken, getToken, removeToken } from "../utils/token";
 
 import { CurrentUserContext } from "../contexts/CurrentUserContext.js";
 import newApi from "../utils/api.js";
@@ -27,6 +27,7 @@ import okImage from "../assets/images/Ok.png";
 import errorImage from "../assets/images/Error.png";
 
 import "../blocks/page.css";
+import ConfirmationPopup from "./Main/components/ConfirmationPopup/ConfirmationPopup.jsx";
 
 function App() {
   const [popup, setPopup] = useState(null);
@@ -72,6 +73,7 @@ function App() {
     })();
   }, []);
  */
+
   useEffect(() => {
     if (!isLoggedIn) return;
 
@@ -162,11 +164,34 @@ function App() {
       .catch((error) => console.error(error));
   }
 
-  async function handleCardDelete(card) {
+  /*   async function handleCardDelete(card) {
     newApi.deleteCard(card._id);
     const cardArray = cards;
     const newCardArray = cardArray.filter((c) => c._id != card._id);
     setCards(newCardArray);
+  } */
+
+  async function handleDeleteConfirmation(cardInfo) {
+    setPopup({
+      children: (
+        <ConfirmationPopup
+          cardInfo={cardInfo}
+          onClose={() => {
+            /* console.log("click aqui"); */
+            handleClosePopup();
+          }}
+        />
+      ),
+    });
+  }
+
+  async function handleCardDelete(card) {
+    try {
+      await newApi.deleteCard(card._id);
+      setCards((prevCards) => prevCards.filter((c) => c._id !== card._id));
+    } catch (error) {
+      console.error("Error al eliminar la tarjeta:", error);
+    }
   }
 
   function handleOpenPopup(popup) {
@@ -239,7 +264,6 @@ function App() {
 
   useEffect(() => {
     const jwt = getToken();
-
     if (!jwt) {
       return;
     }
@@ -250,7 +274,9 @@ function App() {
         api.setToken(jwt);
         setUserData({ email });
       })
-      .catch(console.error);
+      .catch(() => {
+        removeToken();
+      });
   }, []);
 
   return (
@@ -269,6 +295,7 @@ function App() {
         userData,
         popup,
         handleClosePopup,
+        handleDeleteConfirmation,
       }}
     >
       <div className="page">
