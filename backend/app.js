@@ -41,8 +41,8 @@ app.get("/crash-test", () => {
 
 app.post("/signin", login);
 app.post("/signup", createUser);
-app.use("/cards", cardsRouter);
 app.use(auth);
+app.use("/cards", cardsRouter);
 app.use("/users", usersRouter);
 
 /* app.get("/{*splat}", (req, res) => {

@@ -3,9 +3,9 @@ const Card = require("../models/card");
 
 module.exports.getCards = (req, res, next) => {
   Card.find({})
-    .orFail(() => {
+    /* .orFail(() => {
       throw new NotFoundError("Error buscando tarjetas");
-    })
+    }) */
     .then((cards) => {
       console.log("🃏 TARJETAS ENCONTRADAS:", cards);
       console.log("🃏 ¿ES ARRAY?:", Array.isArray(cards));
