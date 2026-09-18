@@ -41,9 +41,9 @@ app.get("/crash-test", () => {
 
 app.post("/signin", login);
 app.post("/signup", createUser);
+app.use("/cards", cardsRouter);
 app.use(auth);
 app.use("/users", usersRouter);
-app.use("/cards", cardsRouter);
 
 /* app.get("/{*splat}", (req, res) => {
   res.status(404).send({ message: "Recurso solicitado no encontrado" });
