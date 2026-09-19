@@ -47,34 +47,21 @@ const userSchema = new mongoose.Schema({
   },
 });
 
-userSchema.statics.findUserByCredentials = async (
-  /* function findUserByCredentials */ email,
-  password,
-) => {
-  console.log("📧 Email recibido:", email);
-  console.log("🗄️ Base de datos:", this.db.name);
-  console.log("📁 Colección:", this.collection.name);
-  const user = await User.findOne({ email }).select("+password");
-  /* return this.findOne({ email })
+userSchema.statics.findUserByCredentials = function (email, password) {
+  return this.findOne({ email })
     .select("+password")
-    .then((user) => { */
-  console.log("👤 Resultado:", user ? "USUARIO ENCONTRADO" : "NULL");
+    .then((user) => {
+      if (!user) {
+        return Promise.reject(new Error("Incorrect email or password"));
+      }
 
-  if (!user) {
-    Promise.reject(new Error("Incorrect email or password"));
-  }
-  console.log("🔐 Tiene password:", !!user.password);
-  const matched = await bcrypt.compare(
-    password,
-    user.password,
-  ); /* .then((matched) => { */
-  /* console.log("🔑 Password coincide:", matched); */
-  if (!matched) {
-    Promise.reject(new Error("Incorrect email or password"));
-  }
-  return user; // ahora user está disponible
-  /*  }); */
-  /* }); */
+      return bcrypt.compare(password, user.password).then((matched) => {
+        if (!matched) {
+          return Promise.reject(new Error("Incorrect email or password"));
+        }
+        return user; // ahora user está disponible
+      });
+    });
 };
 
 module.exports = mongoose.model("user", userSchema);

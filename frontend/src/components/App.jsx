@@ -33,10 +33,7 @@ function App() {
   const [popup, setPopup] = useState(null);
   const [currentUser, setCurrentUser] = useState({});
   const [cards, setCards] = useState([]);
-  /*   setCurrentUser(newApi.getUserInfo()); */
-  /* newApi.getUserInfo().then((res) => {
-    setCurrentUser(res);
-  }); */
+
 
   const [userData, setUserData] = useState({ email: "" });
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -44,13 +41,6 @@ function App() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  /*  useEffect(() => {
-    (async () => {
-      await newApi.getUserInfo().then((data) => {
-        setCurrentUser(data);
-      });
-    })();
-  }, []); */
 
   useEffect(() => {
     if (!isLoggedIn) return;
@@ -65,14 +55,6 @@ function App() {
       });
   }, [isLoggedIn]);
 
-  /*  useEffect(() => {
-    (async () => {
-      await newApi.getCards().then((data) => {
-        setCards(data);
-      });
-    })();
-  }, []);
- */
 
   useEffect(() => {
     if (!isLoggedIn) return;
@@ -100,9 +82,7 @@ function App() {
   };
 
   const handleUpdateAvatar = (data) => {
-    /*  async () => {
-      await newApi.patchProfilePicture(data);
-    }; */
+  
     (async () => {
       await newApi
         .patchProfilePicture(data)
@@ -114,19 +94,6 @@ function App() {
     })();
   };
 
-  /*   const handleAddPlace = (data) => {
-    console.log("🃏 Datos para crear tarjeta:", data);
-    (async () => {
-      await newApi
-        .postCard(data)
-        .then((newCard) => {
-          setCards([newCard, ...cards]);
-          return newCard._id; esto comentarlo
-          handleClosePopup();
-        })
-        .catch((error) => console.error(error));
-    })();
-  }; */
 
   const handleAddPlace = (data) => {
     console.log("🃏 Datos para crear tarjeta:", data);
@@ -164,13 +131,7 @@ function App() {
       .catch((error) => console.error(error));
   }
 
-  /*   async function handleCardDelete(card) {
-    newApi.deleteCard(card._id);
-    const cardArray = cards;
-    const newCardArray = cardArray.filter((c) => c._id != card._id);
-    setCards(newCardArray);
-  } */
-
+ 
   async function handleDeleteConfirmation(cardInfo) {
     setPopup({
       children: (
@@ -236,7 +197,7 @@ function App() {
     auth
       .authorize(email, password)
       .then((data) => {
-        /* console.log(data); */
+   
         const info = option1;
         setPopup({ children: <InfoTooltip info={info} /> });
         if (data.token) {

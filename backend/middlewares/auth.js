@@ -7,9 +7,7 @@ module.exports = (req, res, next) => {
   const { authorization } = req.headers;
   console.log("🔐 AUTH - Authorization recibido:", authorization);
   if (!authorization || !authorization.startsWith("Bearer ")) {
-    console.log("❌ AUTH - No hay token o formato incorrecto");
-    /* return next({ message: "Se requiere autorización", statusCode: 401 }); */
-    throw new InvalidDataError(
+    throw new AuthorizationError(
       "Token no proporcionado o proporcionado en el formato incorrecto",
     );
   }
@@ -19,11 +17,10 @@ module.exports = (req, res, next) => {
 
   try {
     payload = jwt.verify(token, process.env.JWT_SECRET);
-    console.log("✅ AUTH - Token válido:", payload);
   } catch (err) {
-    console.log("❌ AUTH - Token inválido:", err.message);
-    /* return res.status(401).send({ message: "Se requiere autorización" }); */
-    throw new AuthorizationError("El token provisto es inválido");
+    throw new AuthorizationError(
+      "Token no proporcionado o proporcionado en el formato incorrecto",
+    );
   }
 
   req.user = payload; // asigna el payload al objeto de solicitud

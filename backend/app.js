@@ -7,47 +7,30 @@ const mongoose = require("mongoose");
 mongoose.connect("mongodb://localhost:27017/aroundb");
 const auth = require("./middlewares/auth");
 const app = express();
+const validateUser = require("./middlewares/user-validator");
 
-/* app.use((req, res, next) => {
-  console.log("🔥 PETICIÓN RECIBIDA:", req.method, req.url);
-  next();
-}); */
-/* app.get("/test", (req, res) => {
-  console.log("🔥🔥🔥 LLEGÓ A /test");
-  res.send("Backend funcionando");
-}); */
 const { login, createUser } = require("./controllers/users");
 const { requestLogger, errorLogger } = require("./middlewares/logger");
 const cors = require("cors");
 
 app.use(express.json());
-/* app.use((req, res, next) => {
-  console.log("🔥 PETICIÓN:", req.method, req.originalUrl);
-  next();
-}); */
+
 app.use(cors());
 app.options("/*splat", cors());
 app.use(requestLogger);
-/* app.use((req, res, next) => {
-  console.log("🌐 REQUEST:", req.method, req.path);
-  console.log("🔐 AUT H HEADER:", req.headers.authorization);
-  next();
-}); */
+
 app.get("/crash-test", () => {
   setTimeout(() => {
     throw new Error("El servidor va a caer");
   }, 0);
 });
 
-app.post("/signin", login);
-app.post("/signup", createUser);
+app.post("/signin", validateUser, login);
+app.post("/signup", validateUser, createUser);
 app.use(auth);
 app.use("/cards", cardsRouter);
 app.use("/users", usersRouter);
 
-/* app.get("/{*splat}", (req, res) => {
-  res.status(404).send({ message: "Recurso solicitado no encontrado" });
-}); */
 app.use(errorLogger);
 
 app.use((req, res, next) => {

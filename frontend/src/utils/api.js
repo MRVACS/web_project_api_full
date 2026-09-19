@@ -6,9 +6,7 @@ class Api {
     this._header = header;
   }
   setToken(token) {
-    /* console.log("🔑 TOKEN:", token); */
     this._header["Authorization"] = "Bearer " + token;
-    /* console.log("📦 HEADERS:", this._header); */
   }
   getCards() {
     return fetch(`${this._baseUrl}/cards/`, { headers: this._header })
@@ -43,30 +41,8 @@ class Api {
     }).then((data) => {
       return data.json();
     });
-    /*      .then((res) => {
-        return res.json();
-      })
-      .catch((err) => {
-        return Promise.reject(`Error: ${err.status}`);
-        console.log(`Error: ${err}`);
-      }); */
   }
-  /*  postCard(card) {
-    console.log("🃏 postCard llamado:", card);
-    console.log("🌐 URL:", `${this._baseUrl}/cards/`);
-    console.log("🔐 Headers:", this._header);
-    return fetch(`${this._baseUrl}/cards/`, {
-      method: "POST",
-      headers: this._header,
-      body: JSON.stringify({
-        name: card.name,
-        link: card.link,
-      }),
-    }).then((data) => {
-      console.log("📡 RESPUESTA POST:", res.status, res.statusText);
-      return data.json();
-    });
-  } */
+
   postCard(card) {
     console.log("🃏 postCard llamado:", card);
     console.log("🌐 URL:", `${this._baseUrl}/cards/`);
@@ -105,13 +81,6 @@ class Api {
     }).then((data) => {
       return data.json();
     });
-    /* return fetch(`${this._baseUrl}/cards/${targetCardId}/likes`, {
-      method: "PUT",
-      headers: this._header,
-      body: JSON.stringify({
-        isLiked: value,
-      }),
-    }); */
   }
   patchProfilePicture(source) {
     return fetch(`${this._baseUrl}/users/me/avatar`, {
@@ -131,7 +100,6 @@ class Api {
 }
 
 const newApi = new Api({
-  /* baseUrl: "https://around-api.es.tripleten-services.com/v1", */
   baseUrl: BASE_URL,
   header: {
     "Content-Type": "application/json",
