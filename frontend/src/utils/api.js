@@ -44,9 +44,6 @@ class Api {
   }
 
   postCard(card) {
-    console.log("🃏 postCard llamado:", card);
-    console.log("🌐 URL:", `${this._baseUrl}/cards/`);
-    console.log("🔐 Headers:", this._header);
 
     return fetch(`${this._baseUrl}/cards/`, {
       method: "POST",
@@ -57,7 +54,6 @@ class Api {
       }),
     })
       .then((res) => {
-        console.log("📡 RESPUESTA POST:", res.status, res.statusText);
 
         return res.json().then((data) => ({
           status: res.status,
@@ -65,7 +61,6 @@ class Api {
         }));
       })
       .then(({ status, data }) => {
-        console.log("📦 RESPUESTA DEL BACKEND:", data);
 
         if (status >= 400) {
           throw new Error(JSON.stringify(data));

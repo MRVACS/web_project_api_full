@@ -16,8 +16,26 @@ const { errors } = require("celebrate");
 
 app.use(express.json());
 
-app.use(cors());
-app.options("/*splat", cors());
+const allowedOrigins = new Set([
+  "http://localhost:3001", // frontend durante desarrollo
+  "https://ausfu.rinet.ai", // frontend en producción
+]);
+
+const corsOptions = {
+  origin(origin, callback) {
+    // Permite herramientas como Postman o solicitudes internas sin Origin
+    if (!origin || allowedOrigins.has(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Origen no permitido por CORS"));
+    }
+  },
+  methods: ["GET", "POST", "PATCH", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+};
+
+app.use(cors(corsOptions));
+
 app.use(requestLogger);
 
 app.get("/crash-test", () => {
