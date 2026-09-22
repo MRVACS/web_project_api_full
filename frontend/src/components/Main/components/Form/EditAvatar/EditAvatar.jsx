@@ -8,7 +8,7 @@ export default function EditAvatar() {
   function handleSubmit(e) {
     e.preventDefault();
 
-    handleUpdateAvatar({ avatar: avatarRef.current.value });
+    handleUpdateAvatar({ link: avatarRef.current.value });
     /*     console.log(avatarRef); */
   }
   return (

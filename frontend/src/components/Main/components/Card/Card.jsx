@@ -4,6 +4,7 @@ import { CurrentUserContext } from "../../../../contexts/CurrentUserContext";
 export default function Card(props) {
   const { name, link, isLiked, _id, owner } = props.card;
   const { handleCardClick, handleCardLike, handleDeleteConfirmation } = props;
+
   const cardInfo = { name, link, isLiked, _id };
   const { currentUser } = useContext(CurrentUserContext);
   let cardLikeButtonClassName = `element__like ${

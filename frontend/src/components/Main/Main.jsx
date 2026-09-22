@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from "react";
+import { useContext } from "react";
 /* import React from "react"; */
 import profileImage from "../../assets/images/Avatar.png";
 import bigPencil from "../../assets/images/PicturePencil.png";
@@ -72,7 +72,7 @@ export default function Main(props) {
             card={card}
             handleCardClick={handleCardClick}
             handleCardLike={handleCardLike}
-            handleCardDelete={handleCardDelete}
+            /*             handleCardDelete={handleCardDelete} */
             handleDeleteConfirmation={handleDeleteConfirmation}
           />
         ))}

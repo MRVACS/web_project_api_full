@@ -1,5 +1,5 @@
 import "../../../../blocks/confirmationPopup.css";
-export default function ConfirmationPopup({ cardInfo, onClose }) {
+export default function ConfirmationPopup({ cardInfo, onClose, onConfirm }) {
   return (
     <>
       <div className="confirmationPopup">
@@ -11,7 +11,10 @@ export default function ConfirmationPopup({ cardInfo, onClose }) {
         <div className="confirmationPopup__buttons">
           <button
             className="confirmationPopup__button"
-            onClick={() => handleCardDelete(cardInfo)}
+            onClick={() => {
+              onConfirm(cardInfo);
+              onClose();
+            }}
           >
             Confirmar
           </button>

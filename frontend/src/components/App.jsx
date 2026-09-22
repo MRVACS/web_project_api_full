@@ -34,13 +34,11 @@ function App() {
   const [currentUser, setCurrentUser] = useState({});
   const [cards, setCards] = useState([]);
 
-
   const [userData, setUserData] = useState({ email: "" });
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const navigate = useNavigate();
   const location = useLocation();
-
 
   useEffect(() => {
     if (!isLoggedIn) return;
@@ -54,7 +52,6 @@ function App() {
         console.error("❌ Error cargando usuario:", err);
       });
   }, [isLoggedIn]);
-
 
   useEffect(() => {
     if (!isLoggedIn) return;
@@ -82,7 +79,6 @@ function App() {
   };
 
   const handleUpdateAvatar = (data) => {
-  
     (async () => {
       await newApi
         .patchProfilePicture(data)
@@ -93,7 +89,6 @@ function App() {
         .catch((error) => console.error(error));
     })();
   };
-
 
   const handleAddPlace = (data) => {
     console.log("🃏 Datos para crear tarjeta:", data);
@@ -131,16 +126,13 @@ function App() {
       .catch((error) => console.error(error));
   }
 
- 
   async function handleDeleteConfirmation(cardInfo) {
     setPopup({
       children: (
         <ConfirmationPopup
           cardInfo={cardInfo}
-          onClose={() => {
-            /* console.log("click aqui"); */
-            handleClosePopup();
-          }}
+          onClose={handleClosePopup}
+          onConfirm={handleCardDelete}
         />
       ),
     });
@@ -197,7 +189,6 @@ function App() {
     auth
       .authorize(email, password)
       .then((data) => {
-   
         const info = option1;
         setPopup({ children: <InfoTooltip info={info} /> });
         if (data.token) {

@@ -12,6 +12,7 @@ const validateUser = require("./middlewares/user-validator");
 const { login, createUser } = require("./controllers/users");
 const { requestLogger, errorLogger } = require("./middlewares/logger");
 const cors = require("cors");
+const { errors } = require("celebrate");
 
 app.use(express.json());
 
@@ -38,6 +39,7 @@ app.use((req, res, next) => {
     message: "Recurso solicitado no encontrado",
   });
 });
+app.use(errors());
 app.use((err, req, res, next) => {
   const { statusCode = 500, message } = err;
   res.status(statusCode).send({

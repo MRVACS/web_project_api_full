@@ -2,6 +2,7 @@ const jwt = require("jsonwebtoken");
 require("dotenv").config();
 const InvalidDataError = require("../errors/invalid-data-error");
 const AuthorizationError = require("../errors/authorization-error");
+const { JWT_SECRET } = require("../utils/jwt");
 
 module.exports = (req, res, next) => {
   const { authorization } = req.headers;
@@ -16,7 +17,7 @@ module.exports = (req, res, next) => {
   let payload;
 
   try {
-    payload = jwt.verify(token, process.env.JWT_SECRET);
+    payload = jwt.verify(token, JWT_SECRET);
   } catch (err) {
     throw new AuthorizationError(
       "Token no proporcionado o proporcionado en el formato incorrecto",
