@@ -1,1 +1,3 @@
-export const { JWT_SECRET = "dev-secret-key-not-for-production" } = process.env;
+const { JWT_SECRET = "dev-secret-key-not-for-production" } = process.env;
+
+module.exports = { JWT_SECRET };
